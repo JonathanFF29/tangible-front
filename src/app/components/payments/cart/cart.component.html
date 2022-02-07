@@ -1,0 +1,62 @@
+<div class="w-100 center" style="background: #313443;">
+  <div class="w-75 d-flex justify-content-around">
+    <img src="../../../../assets/img/sections-banner/cart.png">
+    <h1 class="align-self-center" style="color: white;">CARRITO DE <br>COMPRAS</h1>
+  </div>
+</div>
+
+<div class="mx-auto w-75">
+  <div class="row mb-4">
+      <div class="col px-0">
+          <hr class="division-line">
+          <h2>CARRITO</h2>
+          <p class="info">Tienes {{listaProductos.length}} items en el carro de la compra</p>
+      </div>
+  </div>
+
+</div>
+
+<div class="container" *ngIf="listaProductos.length > 0">
+  <div class="row pt-4 px-4" *ngFor="let product of paymentService.listaProductos">
+    <div class="col-md-8 d-flex">
+        <img src="{{product.imagePath1}}" height="100px">
+        <div class="d-flex flex-column ml-4">
+          <h5 class="m-0 title">{{product.name}}</h5>
+          <p class="mb-auto card-text">Por <b>{{product.creator}}</b><img src="https://cdn.capitalradio.es/embed/2f92537db76b292d01d5b1977a085551498560800/empty.png?imagick=1&size=1250"></p>
+          <div class="price center">
+            <span>CO {{product.price | currency:'USD':'symbol':'1.0-0'}}</span>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4 d-flex align-items-center justify-content-end">
+      <mat-icon class="icon-style" (click)="deleteModel(product)">delete_outline</mat-icon>
+    </div>
+    <div class="w-100">
+      <hr>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-end" style="padding-right: 8%;">
+    <button class="card-button mb-4" (click)="buy()">
+      <span class="mx-auto" >CO {{total | currency:'USD':'symbol':'1.0-0'}}</span>
+    </button>
+  </div>
+</div>
+
+  <form  method="post" action="https://checkout.payulatam.com/ppp-web-gateway-payu" style="visibility: hidden;"> <!--https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/ -->
+    <input name="merchantId" value="893354"   ><br> <!--prod 893354  dev 508029-->
+    <input name="accountId" value="899900" ><br>  <!--prod 899900  dev 512321-->
+    <input name="description" value="Pago Tangible"  ><br>
+    <input name="referenceCode" value="{{referenceCode}}" ><br>
+    <input name="amount" value="{{total}}"   ><br>
+    <input name="tax" value="0"  ><br>
+    <input name="taxReturnBase" value="0" ><br>
+    <input name="currency" value="COP" ><br>
+    <input name="signature" value="{{signatureNormal}}"  ><br>
+    <input name="test" value="0" ><br> <!--cambiar valor a 1 para pruebas -->
+    <input name="buyerEmail" value="{{datosUsuario?.email}}" ><br>
+    <input name="responseUrl" value="https://tangibleweb-3daa9.firebaseapp.com/payments/carroCompras" ><br>
+    <input name="confirmationUrl" value="https://tangibleweb-3daa9.firebaseapp.com/payments/carroCompras" ><br>
+    <input name="Submit" id="idcomprar" type="submit" value="Enviar" >
+  </form>
+
+

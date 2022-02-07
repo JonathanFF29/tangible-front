@@ -1,0 +1,50 @@
+::ng-deep.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+   padding: 0 0px !important;
+}
+
+::ng-deep.mat-list-base .mat-list-item.mat-2-line, .mat-list-base .mat-list-option.mat-2-line {
+  height: 120px!important;
+}
+
+::ng-deep.mat-list-base .mat-list-item .mat-list-avatar, .mat-list-base .mat-list-option .mat-list-avatar {
+  width: 120px !important;
+  height: 100px !important;
+  border-radius: 5% !important;
+}
+
+
+::ng-deep.mat-list-base ::ng-deep.mat-list-item ::ng-deep.mat-list-avatar{
+  width: 180px !important;
+}
+
+::ng-deep.mat-divider {
+  display: none!important;
+}
+
+.container .row {
+  background: #F5F5F5;
+}
+
+.title {
+  font: bold 18px Segoe UI;
+  color: #808080;
+}
+
+h2 {
+  font: 34px Geometos;
+  color: #808080;
+}
+
+.info {
+  font: 18px Segoe UI;
+  color: #808080;
+}
+
+.price {
+    padding: 6px 8px;
+    background-color: #FFA69D;
+    border: 2px solid #FFA69D;
+    border-radius: 5px;
+    font: bold 16px Segoe UI;
+    color: white;
+}

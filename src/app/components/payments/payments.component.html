@@ -1,0 +1,18 @@
+<p>payments works!</p>
+<form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+  <input name="merchantId"    type="hidden"  value="508029"   >
+  <input name="accountId"     type="hidden"  value="512321" >
+  <input name="description"   type="hidden"  value="Test Tangible"  >
+  <input name="referenceCode" type="hidden"  value="{{referenceCode}}" >
+  <input name="amount"        type="hidden"  value="{{valorTotal}}"   >
+  <input name="tax"           type="hidden"  value="0"  >
+  <input name="taxReturnBase" type="hidden"  value="0" >
+  <input name="currency"      type="hidden"  value="CO" >
+  <input name="signature"     type="hidden"  value="{{signatureNormal}}"  >
+  <input name="test"          type="hidden"  value="1" >
+  <input name="buyerEmail"    type="hidden"  value="{{datosUsuario.email}}" >
+  <input name="responseUrl"    type="hidden"  value="http://localhost:4200/payments/pagoPrincipal" >
+  <input name="confirmationUrl"    type="hidden"  value="http://localhost:4200/payments/pagoPrincipal" >
+  <input name="Submit"        type="submit"  value="Enviar" >
+</form>
+

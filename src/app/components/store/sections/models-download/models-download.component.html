@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col">
+        <h1 class="title1">TODOS LOS PRODUCTOS</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-xl-3 filter-col">
+        <div class="filter-col-inner">
+            <h2>Filtros de búsqueda</h2>
+            <section>
+                <p>Empresas<mat-icon class="align-middle float-right">keyboard_arrow_down</mat-icon></p>
+                <ul class="filter-ul">
+                    <li *ngFor="let company of companies">
+                        <mat-checkbox (change)="onCompanyCheck(company, $event.checked)">{{company}}</mat-checkbox>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <p>Precios<mat-icon class="align-middle float-right">keyboard_arrow_down</mat-icon></p>
+                <ul class="filter-ul">
+                    <li *ngFor="let price of prices">
+                        <mat-checkbox (change)="onPriceCheck(price, $event.checked)">{{price | currency:'USD':'symbol':'1.0-0'}}</mat-checkbox>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <p>Estilos<mat-icon class="align-middle float-right">keyboard_arrow_down</mat-icon></p>
+                <ul class="filter-ul">
+                    <li *ngFor="let style of styles">
+                        <mat-checkbox (change)="onStyleCheck(style, $event.checked)">{{style}}</mat-checkbox>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <p>Formatos<mat-icon class="align-middle float-right">keyboard_arrow_down</mat-icon></p>
+                <ul class="filter-ul">
+                    <li *ngFor="let format of formats">
+                        <mat-checkbox (change)="onFormatCheck(format, $event.checked)">{{format}}</mat-checkbox>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-9">
+        <div class="row">
+            <div *ngFor="let model of modelsSvc.models | paginate: { itemsPerPage: 2, currentPage: _loadCtg.p} | filter: _loadCtg.filterPost
+            | companyFilter: filterRefresh
+            | priceFilter: filterRefresh
+            | styleFilter: filterRefresh
+            | formatFilter: filterRefresh  " class="col p-0">
+                <div class="card card-style">
+                    <div class="card-header m-2 p-1" [routerLink]="['./',model.id]">
+                        <h5 class="card-title m-0">{{model.name}}</h5>
+                        <p class="card-text">Por <b>{{model.creator}}</b><img src="https://cdn.capitalradio.es/embed/2f92537db76b292d01d5b1977a085551498560800/empty.png?imagick=1&size=1250"></p>
+                    </div>
+                    <div class="m-2" [routerLink]="['./',model.id]">
+                        <img class="card-img" src="{{model.imagePath1}}" alt="Photo of a Shiba Inu">
+                    </div>
+                    <div class="card-body">
+                        <p class="p-info">Descargar modelo 3D</p>
+                        <div class="d-flex align-items-center">
+                            <button (click)="downloadFreeModel(model)" class="card-button mr-auto" *ngIf="model.price == 0 else addToCart">
+                                <span class="mr-2">Descarga gratis</span>
+                                <mat-icon class="align-middle">save_alt</mat-icon>
+                            </button>
+                            <ng-template #addToCart>
+                                <button (click)="addCartList(model)" class="card-button mr-auto" *ngIf="model.price > 0 else freeDownload">
+                                    <span class="mr-2">CO {{model.price | currency:'USD':'symbol':'1.0-0'}}</span>
+                                    <mat-icon class="align-middle">shopping_cart</mat-icon>                                    
+                                </button>
+                            </ng-template>
+
+                            <mat-icon class="icon-style" [ngClass]="{'like-icon' : model.like}" (click)="modelsSvc.onLike(model.id)">favorite</mat-icon>
+                            <mat-icon class="icon-style" [ngClass]="{'favorite-icon' : model.saved}" (click)="modelsSvc.onSave(model.id)">grade</mat-icon>
+                            <mat-icon class="icon-style">share</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <pagination-controls (pageChange)="_loadCtg.p = $event" ></pagination-controls>
+    </div>
+</div>

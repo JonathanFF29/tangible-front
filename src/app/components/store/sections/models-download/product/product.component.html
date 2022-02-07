@@ -1,0 +1,109 @@
+<div id="view" class="row">
+    <div class="col-sm-12 col-md-6 pl-0" style="padding-right: 6%;">
+        <h1 class="title2">{{modelInfo?.name}}</h1>
+        <p class="product-by">Por <b>{{modelInfo?.creator}}</b></p>
+        <div id="modelRender" [ngClass]="{'render-hidden' : !showRender}"></div>
+        <div class="mb-3" *ngIf="!showRender">
+            <img src="{{activeImage}}" width="100%">
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="!showRender && modelInfo.sketchfabCode">
+            <button class="card-button mb-3" (click)="loadMedia('render',0)">Modelo 3D</button>
+        </div>
+        <div class="d-flex justify-content-between">
+            <img src="{{modelInfo?.imagePath1}}" width="33%" style="cursor: pointer;" (click)="loadMedia('image',1)">
+            <img src="{{modelInfo?.imagePath2}}" width="33%" style="cursor: pointer;" (click)="loadMedia('image',2)">
+            <img src="{{modelInfo?.imagePath3}}" width="33%" style="cursor: pointer;" (click)="loadMedia('image',3)">
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-6 pr-0" style="margin-top: 113px; padding-left: 6%;">
+        <p>Descargar modelo 3D</p>
+        <button type="button" class="price-button w-100" (click)="addCartList()" *ngIf="!isFree else freeDownload">
+                <span class="mr-2">CO {{modelInfo?.price | currency:'USD':'symbol':'1.0-0'}}</span>
+                <mat-icon class="align-middle">shopping_cart</mat-icon>
+        </button>
+        <ng-template #freeDownload>
+            <button type="button" class="price-button w-100" (click)="downloadFreeModel()">
+                <span class="mr-2">Descarga gratis</span>
+                <mat-icon class="align-middle">save_alt</mat-icon>
+            </button>
+        </ng-template>
+        <hr class="division-line2">
+        <div class="row my-2">
+            <div class="col-sm">
+                <button type="button" class="social-button w-100" (click)="onLike()">
+                    <span class="mr-2">Like</span>
+                    <mat-icon [ngClass]="{'like-icon' : modelsSvc.models[modelsId].like}">favorite</mat-icon>
+                </button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="social-button w-100" (click)="onSave()">
+                    <span class="mr-2">Favorito</span>
+                    <mat-icon [ngClass]="{'favorite-icon' : modelsSvc.models[modelsId].saved}">grade</mat-icon>
+                </button>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="social-button w-100">
+                    <span class="mr-2">Compartir</span>
+                    <mat-icon>share</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="margin-top: 22px;">
+            <div class="social-p">
+                <mat-icon class="align-middle">favorite</mat-icon>
+                <span class="ml-2">{{modelInfo?.likes}} likes</span>
+            </div>
+            <div class="social-p">
+                <mat-icon class="align-middle">grade</mat-icon>
+                <span class="ml-2">{{modelInfo?.saved}} veces guardado</span>
+            </div>
+            <div class="social-p">
+                <mat-icon class="align-middle">share</mat-icon>
+                <span class="ml-2">{{modelInfo?.shared}} veces compartido</span>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="title2" style="margin-top: 40px !important;">DESCRIPCIÓN/INFO</h3>
+            <p class="p1">{{modelInfo?.description}}</p>
+        </div>
+
+        <div>
+            <h3 class="title2" style="margin: 40px 0 20px 0 !important;">FORMATOS</h3>
+            <span class="span-gray-bg mr-2 px-1" *ngFor="let format of modelInfo?.formats">{{format}}</span>
+        </div>
+
+        <div>
+            <h5 class="title3">ESTILOS</h5>
+            <span class="span-gray-bg mr-2 px-1" *ngFor="let tag of modelInfo?.tags">{{tag}}</span>
+        </div>
+
+        <hr class="division-line2">
+
+        <div class="row">
+            <div class="col">
+                <h3 class="title1" style="margin: 4px 0px 26px 0px !important;">ACERCA DEL CREADOR</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="https://cdn.capitalradio.es/embed/2f92537db76b292d01d5b1977a085551498560800/empty.png?imagick=1&size=1250" class="img-cliped w-100"/>
+            </div>
+            <div class="col-lg-8">
+                <h4 class="about-creator-title">{{modelInfo?.creator}}</h4>
+                <p class="about-creator-p">{{modelInfo?.companyDescription}}</p>
+                <button class="about-creator-button">Ver mas del ceador</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 pl-0" style="padding-right: 6%;"></div>
+    <div class="col-sm-12 col-md-6 pr-0" style="padding-left: 6%;"></div>
+</div>
+
+

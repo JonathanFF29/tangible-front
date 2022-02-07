@@ -1,0 +1,51 @@
+<div>
+    <img src="../../../../../assets/img/3dModels.png" class="w-100" style="margin-bottom: 55px;">
+</div>
+
+
+<div class="search-bar left-addon mx-auto">
+    <mat-icon class="icon-style">search</mat-icon>
+    <input type="text" class="form-control" placeholder="¿Qué quieres buscar?" name="filterPost" [(ngModel)]="_loadCtg.filterPost"/>
+</div>
+
+<div class="container">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let ctgArray of categoryArrays;  index as i;" [ngClass]="{'active' : i == 0}">
+                <div class="d-block w-100">
+                    <!-- Para cada sección del carousel -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col p-0 center" *ngFor="let category of ctgArray">
+                                <button mat-button [matMenuTriggerFor]="menu" class="p-0"><img [src]="category.imageToShow" width="120px" height="120px" 
+                                    (mouseover)="onCategory(i, category.id)"
+                                    (mouseout)="onMouseOutCategory(i, category.id)">
+                                <p class="mx-auto ctg-name">{{category.name}}</p></button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item class="ctg-list" *ngFor="let subcategory of category.subcategories" (click)="selectSubCategory(category.id, category.name, subcategory.id, subcategory.name); onCategory(i, category.id)">{{subcategory.name}}</button>
+                                </mat-menu>
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev my-auto" href="#carouselExampleControls" role="button" data-slide="prev">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </a>
+        <a class="carousel-control-next my-auto" href="#carouselExampleControls" role="button" data-slide="next">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+    </div>
+</div>
+
+<div class="w-75 mx-auto">
+    <div class="row" style="margin-bottom: 70px;">
+        <div class="col px-0">
+            <hr class="division-line">
+            <span class="reference-span">Home <mat-icon>double_arrow</mat-icon> Productos <mat-icon>double_arrow</mat-icon> {{_loadCtg.categorySelected.name}} <mat-icon>double_arrow</mat-icon> {{_loadCtg.subcategorySelected.name}}</span>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
