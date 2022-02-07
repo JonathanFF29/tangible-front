@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <button type="button float-left" class="close" aria-label="Close" (click)="Close()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<mat-nav-list class="userRigthMenu">
+    <div class="menuUserHeader">
+        <img mat-card-image src="./assets/img/favicon.png">
+        <div>
+            <h4>{{datosUsuario.name}}</h4>
+            <h6>¿Qué tal tu día?</h6>
+        </div>
+    </div>
+    <div class="menuUserBody">
+        <a mat-list-item [routerLink]="['user-home/usuario']">
+            <span><i class="nc-icon nc-single-02"></i></span> <span class="simple-a">Mi perfil</span>
+        </a>
+        <a mat-list-item [routerLink]="['home']">
+            <span><i class="nc-icon nc-alert-circle-i"></i></span> <span class="simple-a">Términos y condiciones</span>
+        </a>
+        <a mat-list-item [routerLink]="['home']">
+            <span><i class="nc-icon nc-chat-33"></i></span> <span class="simple-a">Preguntas frecuentes</span>
+        </a>
+        <a mat-list-item [routerLink]="['home']">
+            <span><i class="nc-icon nc-mobile"></i></span> <span class="simple-a">Contáctanos</span>
+        </a>
+        <a mat-list-item [routerLink]="['home']">
+            <span><i class="nc-icon nc-key-25"></i></span> <span class="simple-a">Cambiar contraseña</span>
+        </a>
+        <a mat-list-item [routerLink]="['home']">
+            <span><i class="nc-icon nc-simple-remove"></i></span> <span class="simple-a">Eliminar cuenta</span>
+        </a>
+    </div>
+</mat-nav-list>
+<div class="center" style="padding-bottom:5%">
+    <button type="button" class="btn btn-primary margin-top" (click)="cerrarSesion()">Cerrar Sesión</button>
+</div>

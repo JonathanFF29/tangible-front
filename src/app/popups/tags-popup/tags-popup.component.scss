@@ -1,0 +1,41 @@
+@import '../../../assets/sass/paper-kit/variables';
+
+h3 {
+  font-family: $font-family-geometos;
+  color: black;
+}
+.example-card {
+    margin: 5px;
+    max-width: 30%;
+  }
+
+  mat-card-title {
+    font-size: 12px;
+    font-family: $font-family-helvetica;
+    text-align: center;
+  }
+
+  img {
+    padding: 0 20% 0 20%;
+    border-radius: 50%;
+  }
+
+  .flex-content{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .margin {
+    margin: 20px 0 20px 0;
+  }
+
+  .opacity {
+    opacity: 0.5;
+  }
+
+  .checkbox {
+    display: none;
+  }

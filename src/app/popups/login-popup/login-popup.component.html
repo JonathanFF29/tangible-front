@@ -1,0 +1,285 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="Close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <span class='icon-medium icon-tangible'></span>
+    <h1 class="modal-title text-center">Bienvenido</h1>
+</div>
+
+<div *ngIf="!success; else Success" class="modal-body">
+
+    <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="close(alert)">
+            {{ alert.message }} <button class="simple-button simple-a" style="color: white" *ngIf="alert.button" (click)="ResendEmail()">Reenviar correo.</button>
+        </ngb-alert>
+    </p>
+
+    <div *ngIf="!isSignup; else SignupForm" class="container">
+        <form [formGroup]="formLogin">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class='nc-icon nc-email-85'></i>
+                        </span>
+                    </div>
+
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="nc-icon nc-key-25"></i>
+                        </span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Contraseña" formControlName="password">
+                </div>
+            </div>
+
+            <div class="form-check initial-display">
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-check-label align-self-center">
+                            <input class="form-check-input" type="checkbox" value="">
+                            Recordarme
+                            <span class="form-check-sign"></span>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-primary btn-link btn-light-text float-right" (click)="RecoverPassword()">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="center">
+            <button type="button" class="btn btn-primary margin-top" (click)="Login()">Ingresar</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal-footer margin-bottom-footer">
+    <div>Ó</div>
+    <div class="row">
+        <button (click)="signUpFirebaseGoogle()" type="button" class="btn btn-neutral btn-google btn-light-text btn-with-icon">
+            <i class='icon icon-google-login'></i>
+        </button>
+
+        <button (click)="signUpFirebaseFacebook()" type="button" class="btn btn-neutral btn-facebook btn-light-text btn-with-icon">
+            <i class='icon icon-facebook-login'></i>
+        </button>
+    </div>
+
+    <div class="question">
+        <p *ngIf="!isSignup; else SignupQuestion">¿No tienes cuenta?
+            <button type="button" class="simple-button simple-a" (click)="GoToSignup()">Registrate</button>
+        </p>
+    </div>
+
+    <div *ngIf="isSignup" class="terms">
+        <a href="" class="simple-a">Términos & Condiciones</a>
+    </div>
+</div>
+
+
+
+<!-- SIGNUP -->
+
+<!-- DESCOMENTAR PARA ACTIVAR LOGIN -->
+<ng-template #SignupQuestion>
+    <p>¿Ya tienes cuenta?
+        <button type="button" class="simple-button simple-a" (click)="GoToLogin()">Ingresar</button>
+    </p>
+</ng-template>
+
+
+<ng-template #SignupForm>
+    <form [formGroup]="formSignup">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class='nc-icon nc-email-85'></i>
+                    </span>
+                </div>
+
+                <input type="text" class="form-control" placeholder="Email" formControlName="email" [class.is-invalid]="InvalidControlSG('email')">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="nc-icon nc-key-25"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" [class.is-invalid]="InvalidControlSG('password')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Confirmar contraseña" formControlName="password2" [class.is-invalid]="InvalidControlSG('password2')">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="nc-icon nc-circle-10"></i>
+                    </span>
+                </div>
+
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="name" [class.is-invalid]="InvalidControlSG('name')">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="nc-icon nc-favourite-28"></i>
+                            </span>
+                        </div>
+
+                        <select class="form-control" placeholder="Género" formControlName="gender">
+                            <option value="" selected>Género</option>
+                            <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="input-group date">
+
+                        <input class="form-control" placeholder="Fecha de cumpleaños" name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" formControlName="birthdate" [minDate]="minDate" [maxDate]="todayDate" />
+
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="nc-icon nc-calendar-60"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!--<small>
+                        <i class="nc-icon nc-alert-circle-i"></i>
+                        <span>Queremos saber tu cumpleaños para felicitarte</span>
+                    </small>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="nc-icon nc-world-2"></i>
+                            </span>
+                        </div>
+
+                        <select class="form-control" placeholder="País" formControlName="country" (change)="ChangedCountry($event.target.value)">
+                            <option value="" selected>País</option>
+                            <option *ngFor="let countrie of countries | ObjectKeys" [value]="countrie">{{countrie}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="nc-icon nc-pin-3"></i>
+                            </span>
+                        </div>
+
+                        <select class="form-control" placeholder="Ciudad" formControlName="city">
+                            <option value="" selected>Ciudad</option>
+                            <option *ngFor="let city of countries[ControlSG('country').value]" [value]="city">
+                                {{city}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="nc-icon nc-badge"></i>
+                    </span>
+                </div>
+
+                <select class="form-control" placeholder="Profesión" formControlName="profession">
+                    <option value="" selected>Profesión</option>
+                    <option *ngFor="let career of careers" [value]="career">{{career}}</option>
+                </select>
+            </div>
+        </div>
+
+        <!--
+        <div class="form-group">
+            <label>Temas de interés</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="nc-icon nc-badge"></i>
+                    </span>
+                </div>
+
+                <ng-multiselect-dropdown class="form-control" formControlName="tags" [placeholder]="'Selecciona alguno'"
+                    [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="">
+                Quiero recibir información en mi correo electrónico
+                <span class="form-check-sign"></span>
+            </label>
+        </div>
+        -->
+
+    </form>
+
+    <div class="center">
+        <button type="button" class="btn btn-primary margin-top" (click)="Signup()">Registrarme</button>
+    </div>
+    <div class="center  primary-color">
+        <small>{{message}}</small>
+    </div>
+</ng-template>
+
+
+<!-- SUCCESS -->
+<ng-template #Success>
+    <div class="center success primary-color">
+        <h3>{{messageSuccess}}</h3>
+    </div>
+</ng-template>

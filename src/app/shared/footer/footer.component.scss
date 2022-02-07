@@ -1,0 +1,35 @@
+.shapes-left-footer{
+    position: absolute;
+    bottom: 20%;
+    left: 0px;
+}
+
+.shapes-bottom-footer{
+    position: absolute;
+    bottom: 0px;
+    right: 1rem;
+}
+
+.shapes-division-footer{
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    
+    span:nth-child(1){
+        position: relative;
+        top: 0px;
+        float: left;
+        transform: translateX(50%);
+        left: 33.3%;
+    }
+    span:nth-child(2){
+        position: relative;
+        top: 0px;
+        float: right;
+        transform: translateX(-50%);
+        right: 33.3%;
+    }
+}
+
+//otros estilos en _footer.cs

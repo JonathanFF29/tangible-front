@@ -1,0 +1,63 @@
+<footer class="footer footer-black">
+  <span class='icon-small icon-shapes-3 shapes-left-footer'></span>
+  <div class="shapes-division-footer">
+    <span class='icon-super-large icon-shapes-4'></span>
+    <span class='icon-super-large icon-shapes-4'></span>
+  </div>
+  <span class='icon-large icon-shapes-1 shapes-bottom-footer'></span>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4 a-col">
+        <h1>{{footerData.aboutUs.title}}</h1>
+        <p>{{footerData.aboutUs.description}}</p>
+      </div>
+
+      <div class="col-4">
+        <h1>{{footerData.contact.title}}</h1>
+
+        <nav class="footer-nav">
+          <ul>
+            <li>
+              <a [href]="footerData.contact.address.link" target="_blank">
+                {{footerData.contact.address.name}}</a>
+            </li>
+
+            <li class="with-division">
+              <a *ngFor="let phone of footerData.contact.phones" [href]="'tel:+57' + phone">{{phone}}</a>
+            </li>
+
+            <li>
+              <a [href]="'mailto:' + footerData.contact.email">{{footerData.contact.email}}</a>
+            </li>
+
+          </ul>
+        </nav>
+
+        <div class="icons-container" style="margin-top: 0.2rem;">
+          <a *ngFor="let social of footerData.contact.social" class="hover-icon" [href]="social.link" target="_blank">
+            <span class='icon-ultra-small' [ngClass]="social.icon"></span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="col-4">
+        <h1>{{footerData.menu.title}}</h1>
+
+        <nav class="footer-nav">
+          <ul>
+            <li *ngFor="let route of footerData.menu.routes">
+              <a [routerLink]="['/' + routes[route].path]">
+                {{routes[route].title}}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+
+  </div>
+</footer>

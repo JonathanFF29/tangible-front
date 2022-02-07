@@ -1,0 +1,57 @@
+::ng-deep .myCustomModalClass .modal-dialog  {
+   @media (min-width: 601px) and (max-width: 2000px) {
+    margin-right: 30px ;
+    width: 25%
+   }
+   @media (min-width: 100px) and (max-width: 900px) {
+    padding-top: 120px;
+    width: 75%
+   }
+}
+
+
+
+
+::ng-deep .modal-backdrop.show {
+   opacity: 0;
+}
+
+.mat-icon {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+img {
+  width: auto;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.menuUserHeader{
+  display: flex;
+  padding: 5% 10% 0% 10%;
+}
+.menuUserHeader div h4 {
+  font-family: Geometos;
+  font-size: 1.2em;
+  color: black;
+}
+.menuUserHeader div h6 {
+  font-family: Helvetica;
+  font-size: 1em;
+  font-weight: normal;
+  text-transform: initial;
+}
+
+.menuUserBody {
+  padding: 5%;
+}
+
+h4{
+  margin: 5px 0 0;
+}
+
+a span {
+  margin: 12px;
+  font-size: 1em;
+}

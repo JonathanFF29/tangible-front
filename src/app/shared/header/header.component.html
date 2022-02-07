@@ -1,0 +1,111 @@
+<nav id="navbar-main"
+  class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+  <div class="container-fluid">
+    <div>
+      <a class="navbar-brand" [routerLink]="['/' + routes.home.path]">
+        <span style="padding-right: 2.5rem" class='icon-tangible'></span>
+      </a>
+    </div>
+
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- menu ventana emergente -->
+    <div class="navbar-collapse collapse" id="navbar_global" [ngbCollapse]="isCollapsed">
+      <div class="navbar-collapse-header">
+        <div class="row" style="justify-content: center;">
+          <!-- <div class="col-6 collapse-brand">
+            <a [routerLink]="['/' + routes.home.path]">
+              <span class='icon-small icon-tangible-color'></span>
+            </a>
+          </div> -->
+
+          <div class="collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="navbar_global">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- navegacion -->
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+
+        <li *ngFor="let route of routesNavigation" class="nav-item" [ngClass]="{'dropdown': route == 'services'}">
+          <a *ngIf="route != 'services'; else Services" class="nav-link no-caret"
+            [routerLink]="['/' + routes[route].path]" routerLinkActive="nav-link-active">
+            <i class="ni ni-ui-04 d-lg-none"></i>
+            <span class="nav-link-inner--text">{{routes[route].title}}</span>
+          </a>
+        </li>
+
+      </ul>
+      <!--
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+
+        <li class="nav-item">
+          <a  class="nav-link no-caret"
+            [routerLink]="['payments/pagoPrincipal']" routerLinkActive="nav-link-active">
+            <i class="ni ni-ui-04 d-lg-none"></i>
+            <span class="nav-link-inner--text">Pagos</span>
+          </a>
+        </li>
+
+      </ul>
+      -->
+
+      <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+        <li class="nav-item mr-2 nav-button">
+          <a class="nav-link hover-icon" [routerLink]="['/' + routes.payments.path]" routerLinkActive="nav-link-active">
+            <span class="nav-link-inner--text">{{routes.cart.title}}</span>
+            <span class='icon-super-small ml-2' [ngClass]="routes.cart.icon"></span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- permanece -->
+    <div  *ngIf="!(authenticacionService.userData | async)" class="nav-button nav-button-active">
+      <a class="nav-link hover-icon" (click)="OpenLoginPopup()">
+        <span class="nav-link-inner--text text-uppercase">Ingresar</span>
+        <span class='icon-super-small icon-user ml-2'></span>
+      </a>
+    </div>
+
+    <div  *ngIf="(authenticacionService.userData | async) && isactive === 1" class="nav-button nav-button-active">
+      <a class="nav-link hover-icon" (click)="OpenMenuUserPopup()">
+        <span class="nav-link-inner--text text-uppercase">{{datosUsuario}}</span>
+        <span class='icon-super-small icon-user ml-2'></span>
+      </a>
+    </div>
+    <div  *ngIf="(authenticacionService.userData | async) && isactive === 0" class="nav-button nav-button-active">
+      <a class="nav-link hover-icon">
+        <span class="nav-link-inner--text text-uppercase">{{datosUsuario}}</span>
+        <span class='icon-super-small icon-user ml-2'></span>
+      </a>
+    </div>
+
+
+  </div>
+</nav>
+
+<ng-template #Services>
+  <a class="nav-link no-caret" data-toggle="dropdown" role="button" disabled
+    [routerLink]="['/' + routes.services.path]" routerLinkActive="nav-link-active" >
+    <i class="ni ni-ui-04 d-lg-none"></i>
+    <span class="nav-link-inner--text">{{routes.services.title}}</span>
+  </a>
+  <div class="dropdown-menu-horizontal dropdown-menu dropdown-menu-xl">
+    <a *ngFor="let child of routes.services.children | ObjectKeys" class="dropdown-item hover-icon"
+      [routerLink]="['/' + routes.services.path + '/' + routes.services.children[child].path]"
+      routerLinkActive="dropdown-item-active">
+      <span class='icon-super-small mr-2' [ngClass]="routes.services.children[child].icon"></span>
+      <span>{{routes.services.children[child].title}}</span>
+    </a>
+  </div>
+</ng-template>
