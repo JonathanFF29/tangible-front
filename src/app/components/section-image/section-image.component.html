@@ -1,0 +1,30 @@
+<div class="section-image img-background" [ngStyle]="{'background-image': 'url(' + homeSection.backgroundURL + ')'}">
+    <ng-content></ng-content> <!-- aquí pondre los iconos desde los componentes donde lo use -->
+    
+    <div class="content">
+        <div class="title">
+            <h1>{{homeSection.title}}</h1>
+        </div>
+        <div class="line"></div>
+        <div class="description">
+            <h3>{{homeSection.description}}</h3>
+            
+            <div *ngIf="homeSection.hasButton" class="center">
+                <!-- DESCOMENTAR CUANDO SE QUITE EL LINK TEMPORAL -->
+                <!-- <button class="btn btn-go" [routerLink]="['/' + homeSection.pathButton]">
+                    <span>{{homeSection.textButton}}</span>
+                    <span class='icon-ultra-small icon-arrow-light'></span>
+                </button> -->
+
+                <!-- Eliminar para que si redirecccione dentro de la pag -->
+                <button class="btn btn-go"
+                (click)="OpenLink(homeSection.temporalLink)">
+                    <span>{{homeSection.textButton}}</span>
+                    <span class='icon-ultra-small icon-arrow-light'></span>
+                </button>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
